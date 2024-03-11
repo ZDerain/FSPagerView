@@ -93,6 +93,10 @@ open class FSPagerView: UIView,UICollectionViewDataSource,UICollectionViewDelega
         }
     }
     
+    open var visibleCells: [FSPagerViewCell] {
+        return self.collectionView.visibleCells as! [FSPagerViewCell]
+    }
+    
     /// The time interval of automatic sliding. 0 means disabling automatic sliding. Default is 0.
     @IBInspectable
     open var automaticSlidingInterval: CGFloat = 0.0 {
