@@ -479,10 +479,15 @@ open class FSPagerView: UIView,UICollectionViewDataSource,UICollectionViewDelega
     }
     
     /// Reloads all of the data for the collection view.
-    @objc(reloadData)
-    open func reloadData() {
+    @objc(reloadData:)
+    open func reloadData(_ completion: ((Bool) -> Void)? = nil) {
         self.collectionViewLayout.needsReprepare = true;
-        self.collectionView.reloadData()
+        self.collectionView.performBatchUpdates {
+            self.collectionView.reloadData()
+        } completion: {
+            completion?($0)
+        }
+
     }
     
     /// Selects the item at the specified index and optionally scrolls it into view.
