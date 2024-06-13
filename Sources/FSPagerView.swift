@@ -482,12 +482,17 @@ open class FSPagerView: UIView,UICollectionViewDataSource,UICollectionViewDelega
     @objc(reloadData:)
     open func reloadData(_ completion: ((Bool) -> Void)? = nil) {
         self.collectionViewLayout.needsReprepare = true;
-        self.collectionView.performBatchUpdates {
+        UIView.animate(withDuration: 0.1, animations: {
             self.collectionView.reloadData()
-        } completion: {
+        }, completion: {
             completion?($0)
-        }
-
+        })
+    }
+    
+    @objc(performBatchUpdates:completion:)
+    open func performBatchUpdates(_ updates: (() -> Void)?, completion: ((Bool) -> Void)? = nil) {
+        self.collectionViewLayout.needsReprepare = true;
+        self.collectionView.performBatchUpdates(updates, completion: completion)
     }
     
     /// Selects the item at the specified index and optionally scrolls it into view.
